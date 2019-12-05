@@ -1,18 +1,31 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="beers-list container flex flex-wrap">
+      <router-link
+        v-for="(beer, index) in beers"
+        :key="index"
+        :to="`/beer/${beer.id}`"
+        class="flex-shrink-0 w-1/5 m-2 flex-grow"
+      >
+        <beer :beer="beer" />
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Beer from "@/components/Beer";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
+    Beer
+  },
+  computed: {
+    beers() {
+      return this.$store.state.beers;
+    }
   }
 };
 </script>
